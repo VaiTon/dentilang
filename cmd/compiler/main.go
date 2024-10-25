@@ -10,6 +10,7 @@ import (
 
 	"github.com/fatih/color"
 
+	"dentilang/parser"
 	visitor2 "dentilang/visitor"
 )
 
@@ -86,10 +87,10 @@ func main() {
 
 	expr := flag.Arg(0)
 
-	sc := NewScanner(expr)
-	parser := NewParser(sc)
+	sc := parser.NewScanner(expr)
+	p := parser.NewParser(sc)
 
-	ast, err := parser.parseExp()
+	ast, err := p.Parse()
 	if err != nil {
 		slog.Error(fmt.Sprintf("syntax error: %v", err))
 		os.Exit(1)

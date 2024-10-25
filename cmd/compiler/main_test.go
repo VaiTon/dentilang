@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"dentilang/ast"
+	"dentilang/parser"
 	visitor2 "dentilang/visitor"
 )
 
@@ -38,10 +39,10 @@ func Test_interpret(t *testing.T) {
 
 	for _, exp := range exps {
 		t.Run(exp.expr, func(t *testing.T) {
-			sc := NewScanner(exp.expr)
-			parser := NewParser(sc)
+			sc := parser.NewScanner(exp.expr)
+			parser := parser.NewParser(sc)
 
-			ast, err := parser.parseExp()
+			ast, err := parser.Parse()
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -62,10 +63,10 @@ func Test_interpret(t *testing.T) {
 func TestYes(t *testing.T) {
 	expr := "(1 + 2) * 3"
 
-	sc := NewScanner(expr)
-	parser := NewParser(sc)
+	sc := parser.NewScanner(expr)
+	parser := parser.NewParser(sc)
 
-	ast, err := parser.parseExp()
+	ast, err := parser.Parse()
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -37,7 +37,6 @@ Then you need to install the dependencies and build the project:
 
 ```shell
 go mod download
-go build .
 ```
 
 ### Usage
@@ -45,7 +44,8 @@ go build .
 To run the compiler you need to execute the following command:
 
 ```shell
-./dentilang [-m <mode>] <expression>
+go build ./cmd/compiler/
+./compiler [-m <mode>] <expression>
 ```
 
 Where `<mode>` (default `sexpr`) is one of the following:

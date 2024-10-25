@@ -1,4 +1,4 @@
-package main
+package parser
 
 import (
 	"errors"
@@ -12,6 +12,10 @@ type Parser struct {
 
 func NewParser(scanner *Scanner) *Parser {
 	return &Parser{scanner: scanner}
+}
+
+func (p *Parser) Parse() (ast.Exp, error) {
+	return p.parseExp()
 }
 
 func (p *Parser) parseExp() (ast.Exp, error) {
