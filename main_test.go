@@ -16,14 +16,23 @@ func Test_interpret(t *testing.T) {
 	}{
 		{
 			"1 + 2 * 3",
-			ast.SumExp{ast.NumExp{1}, ast.MulExp{ast.NumExp{2}, ast.NumExp{3}}},
+			ast.NewSumExp(
+				ast.NewNumExp(1),
+				ast.NewMulExp(ast.NewNumExp(2), ast.NewNumExp(3)),
+			),
 		},
 		{
 			"(2+3) * 20 / ((3+2)*3)",
-			ast.DivExp{
-				ast.MulExp{ast.SumExp{ast.NumExp{2}, ast.NumExp{3}}, ast.NumExp{20}},
-				ast.MulExp{ast.SumExp{ast.NumExp{3}, ast.NumExp{2}}, ast.NumExp{3}},
-			},
+			ast.NewDivExp(
+				ast.NewMulExp(
+					ast.NewSumExp(ast.NewNumExp(2), ast.NewNumExp(3)),
+					ast.NewNumExp(20),
+				),
+				ast.NewMulExp(
+					ast.NewSumExp(ast.NewNumExp(3), ast.NewNumExp(2)),
+					ast.NewNumExp(3),
+				),
+			),
 		},
 	}
 
@@ -43,7 +52,7 @@ func Test_interpret(t *testing.T) {
 
 			v := &visitor2.SExprVisitor{}
 			ast.Accept(v)
-			sexpr := v.result
+			sexpr := v.Result()
 
 			fmt.Println(sexpr)
 		})
